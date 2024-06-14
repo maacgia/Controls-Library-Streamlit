@@ -1,0 +1,12 @@
+services:
+  bibliotec_streamlit:
+    build: .
+    container_name: bibliotec_streamlit
+    image: bibliotec_streamlit:dev
+
+    volumes:
+      - ./app:/app
+    ports:
+      - 8502:8501
+    stdin_open: true  # Mantiene el contenedor abierto para entrada estándar
+    tty: true  # Mantiene el contenedor en ejecución

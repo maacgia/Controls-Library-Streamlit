@@ -1,0 +1,10 @@
+pandas
+streamlit
+streamlit_shadcn_ui
+streamlit-option-menu==0.3.13
+plotly
+plotly_express
+folium==0.16.0
+streamlit-folium==0.20.0
+matplotlib
+PyPDF2==3.0.1
