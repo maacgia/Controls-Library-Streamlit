@@ -40,8 +40,8 @@ Bienvenido a la Biblioteca de Controles en Streamlit. Este repositorio está dis
 Clona este repositorio en tu máquina local usando:
 
 ```sh
-git clone https://github.com/tu_usuario/biblioteca_streamlit.git
-cd biblioteca_streamlit
+git clone https://github.com/maacgia/Controls-Library-Streamlit
+cd Controls-Library-Streamlit
 ```
 
 #### Paso 2: Configurar Docker
@@ -49,7 +49,7 @@ cd biblioteca_streamlit
 Asegúrate de que Docker y Docker Compose estén instalados en tu sistema. Luego, puedes construir y levantar los contenedores usando:
 
 ```sh
-docker-compose up --build
+docker compose up --build
 ```
 
 Este comando construirá la imagen de Docker y levantará el contenedor definido en `docker-compose.yml`.
@@ -81,44 +81,33 @@ La última página incluye ejemplos de visualización de datos geoespaciales, gr
 #### Archivo `docker-compose.yml`
 
 ```yaml
-version: '3.8'
 
 services:
   bibliotec_streamlit:
     build: .
     container_name: bibliotec_streamlit
     image: bibliotec_streamlit:dev
+
     volumes:
       - ./app:/app
     ports:
-      - "8502:8501"
-    stdin_open: true
-    tty: true
+      - 8501:8501
+    stdin_open: true  # Mantiene el contenedor abierto para entrada estándar
+    tty: true  # Mantiene el contenedor en ejecución
+
 ```
 
 #### Archivo `Dockerfile`
 
 ```dockerfile
-# Dockerfile
 FROM python:3.9-slim
 
-# Instalar dependencias del sistema
-RUN apt-get update && \
-    apt-get install -y nano bash && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# Copiar el código de la aplicación al contenedor
 COPY ./app /app
-
-# Establecer el directorio de trabajo
 WORKDIR /app
-
-# Instalar las dependencias de Python
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Comando para ejecutar la aplicación Streamlit
 CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.enableCORS=false"]
+
 ```
 
 #### Comandos para Ejecutar
@@ -128,6 +117,16 @@ Para construir y ejecutar el contenedor Docker, usa:
 ```sh
 docker-compose up --build
 ```
+
+# Acceso a la Aplicación
+Una vez que el contenedor Docker esté en ejecución, puedes acceder a la aplicación Streamlit en tu navegador web usando la siguiente URL:
+
+
+```
+http://localhost:8501
+```
+
+Asegúrate de sustituir localhost con la dirección IP o nombre de host correspondiente si estás ejecutando Docker en una máquina remota.
 
 ### Créditos
 
